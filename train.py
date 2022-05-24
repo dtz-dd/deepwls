@@ -47,24 +47,23 @@ def get_data():
 
 # @torchsnooper.snoop()
 def main():
-    # 获取训练集
     train_set = load_data("D:/ImageSmoothing/ImageSmoothing/pascal_train_set", 16)
     device = torch.device('cuda')
-    model = FcnBn()  # 网络
-    # model.load_state_dict(torch.load('./model/newloss/90smoothing_gs_constantvalue0.03_5000.pth'))  # 把加载的权重复制到模型的权重中去
+    model = FcnBn()  
+    # model.load_state_dict(torch.load('./model/newloss/90smoothing_gs_constantvalue0.03_5000.pth'))  
 
-    criterion = new_loss()  # 改成想要的loss
+    criterion = new_loss()
 
-    optimizer = optim.Adam(model.parameters(), lr=1e-3)  # lr学习率
+    optimizer = optim.Adam(model.parameters(), lr=1e-3)  
     model = model.to(device)
-    # 初始化可视化工具
+    
     writer = SummaryWriter()
     x, _ = iter(train_set).next()
-    # 绘制网络结构
+    
     height = x.size()[2]
     width = x.size()[3]
-    # 网络训练
-    # min_loss = 1
+    
+    
     time1 = time.time()
 
     for epoch in range(1, 120):  
@@ -78,7 +77,7 @@ def main():
             lamd = 10 #Modified training parameters
             alpha = 0.08
             x_hat = model(x)
-            loss = criterion(x, x_hat, lamd, alpha)  # 这里调用
+            loss = criterion(x, x_hat, lamd, alpha)  
 
             # backprop
             optimizer.zero_grad()
@@ -101,11 +100,9 @@ def main():
 
     time2 = time.time()
     print((time2 - time1)/60/60, " 小时")
-    # 保存训练好的模型
-    # save(module,'')保存整个模型；
     torch.save(model.state_dict(),
                "./model/newloss/smoothing_gs_constantvalue{}_{}.pth".format(lamd,alpha))
-    # save(model.state_dict(),'')保存训练好的权重
+    # save(model.state_dict(),'')
 
 
 if __name__ == '__main__':
