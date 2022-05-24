@@ -13,10 +13,9 @@ def main(device):
         # transforms.Resize((256, 256)),
         transforms.ToTensor()
     ])
-    # 改文件名
+    
     file_name = "320X240"
-    # file_name = "320X240"
-    # 改文件名
+    # change filename
     folder_path = "D:/labdata/ImageSmoothing-main/predict_set/60dataset/deepwls/smooth/" + file_name +"/"
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
@@ -36,8 +35,8 @@ def main(device):
     a = 1
     filelist = []
     timeall = 0
-    filenames = os.listdir(dir1)# 得到所有名称
-    # filenames.sort(key=lambda x:int(x[:-4])) # #倒着数第四位'.'为分界线，按照‘.’左边的数字从小到大排序
+    filenames = os.listdir(dir1)
+    # filenames.sort(key=lambda x:int(x[:-4])) 
     # print(filenames)
     for fn in filenames:
         if fn == '.DS_Store':
