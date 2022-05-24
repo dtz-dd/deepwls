@@ -54,9 +54,9 @@ def main(device):
             torch.cuda.synchronize()
             time_1 = time.time()
             y = model(x)
+            torch.cuda.synchronize()
             time_2 = time.time()
             timed = (time_2 - time_1)
-            torch.cuda.synchronize()
             print(timed, " s")
             timeall += timed
             print(timeall)
